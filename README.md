@@ -31,17 +31,54 @@
 
 ---
 
-## 🚀 Installation locale
+## Installation locale
+
+### Prérequis
+
+Assurez-vous d’avoir installé sur votre machine :
+
+- PHP 8.1 ou supérieur
+- Composer : https://getcomposer.org/
+- Symfony CLI : https://symfony.com/download
+- Une base de données compatible (MySQL, PostgreSQL…)
+- Git
+
+### Étapes d’installation
 
 ```bash
+# 1. Cloner le dépôt
 git clone https://github.com/bertrand-dwap/recurring.git
 cd recurring
+
+# 2. Installer les dépendances PHP
 composer install
+
+# 3. Copier le fichier .env et le personnaliser
 cp .env .env.local
+```
+
+Configurer la base de données dans le fichier `.env.local` selon votre configuration locale :
+
+```
+DATABASE_URL="mysql://user:password@127.0.0.1:3306/recurring?serverVersion=8.0"
+```
+
+```bash
+# 4. Créer la base de données
 php bin/console doctrine:database:create
+
+# 5. Exécuter les migrations
 php bin/console doctrine:migrations:migrate
+
+# 6. Démarrer le serveur de développement Symfony
 symfony server:start
 ```
+
+### Accès à l’application
+
+Une fois le serveur démarré, ouvrez votre navigateur à l’adresse :
+
+http://localhost:8000
 
 ---
 
