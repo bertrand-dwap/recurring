@@ -71,7 +71,7 @@ php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 
 # 6. Démarrer le serveur de développement Symfony
-symfony server:start
+symfony serve
 ```
 
 ### Accès à l’application
