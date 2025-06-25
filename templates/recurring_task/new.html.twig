@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une nouvelle tâche{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h4 mb-0">Créer une nouvelle tâche</h1>
+        <a href="{{ path('app_recurring_task_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Revenir à la liste
+        </a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {{ include('recurring_task/_form.html.twig', { 'button_label': 'Créer la tâche' }) }}
+        </div>
+    </div>
+
+</div>
+{% endblock %}

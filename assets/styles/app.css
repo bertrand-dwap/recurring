@@ -1,0 +1,67 @@
+body {
+    padding: 10px;
+}
+.task {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-left: 5px solid transparent;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.task h6 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+    font-weight: 600;
+}
+
+.task p {
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
+}
+
+.task article {
+    font-size: 0.9rem;
+}
+
+.echeance {
+    text-align: right;
+    font-weight: bold;
+    font-size: 0.9rem;
+    color: #0d6efd;
+}
+
+/* Sections colorées */
+section.late {
+    background-color: #f8d7da;
+    border-left: 5px solid #dc3545;
+}
+
+section.today {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+}
+
+section.tomorrow {
+    background-color: #d1e7dd;
+    border-left: 5px solid #198754;
+}
+
+section.future {
+    background-color: #cfe2ff;
+    border-left: 5px solid #0d6efd;
+}
+
+/* Pour les tâches terminées ou historiques */
+.p_history {
+    font-size: 0.8rem;
+    color: #6c757d;
+    font-style: italic;
+}
+
+#recurrences {
+    transition: all 0.3s ease-in-out;
+}
+

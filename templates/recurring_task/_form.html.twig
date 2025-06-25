@@ -1,0 +1,110 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+<div class="mb-3">
+    {{ form_label(form.task, null, {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.task, {'attr': {'class': 'form-control'}}) }}
+</div>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Récurrence</legend>
+
+    <div class="form-check form-switch mb-3">
+        {{ form_widget(form.oneTime, {
+            'attr': {
+                'class': 'form-check-input',
+            }
+        }) }}
+    </div>
+
+    <div id="recurrences" class="row g-2">
+        <div class="col-sm-6">
+            {{ form_label(form.frequency, 'Fréquence', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.frequency, {'attr': {'class': 'form-control'}}) }}
+        </div>
+        <div class="col-sm-6">
+            {{ form_label(form.frequencyUnit, 'Unité', {'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.frequencyUnit, {'attr': {'class': 'form-select'}}) }}
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Prochaine échéance</legend>
+    {{ form_label(form.nextTime, null, {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nextTime, {'attr': {'class': 'form-control'}}) }}
+</fieldset>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Jours avant affichage</legend>
+    {{ form_label(form.nbDaysBeforeToDisplay, null, {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.nbDaysBeforeToDisplay, {'attr': {'class': 'form-control'}}) }}
+</fieldset>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Date de fin (optionnelle)</legend>
+    {{ form_label(form.end, null, {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.end, {'attr': {'class': 'form-control'}}) }}
+</fieldset>
+
+<div class="mb-4">
+    {{ form_label(form.comments, null, {'label_attr': {'class': 'form-label'}}) }}
+    {{ form_widget(form.comments, {'attr': {'class': 'form-control', 'rows': 3}}) }}
+</div>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Fichiers liés</legend>
+    {% if existing_files is defined %}
+        {% for file in existing_files %}
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span>{{ file.originalName }}</span>
+                <div>
+                    {{ form_widget(form.remove_files[file.id]) }}
+                    <label for="{{ form.remove_files[file.id].vars.id }}">Supprimer</label>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+    {{ form_row(form.uploads) }}
+</fieldset>
+
+<fieldset class="border p-3 rounded mb-4">
+    <legend class="float-none w-auto px-2">Afficher les dernières opérations ?</legend>
+    {{ form_widget(form.latestOperationsVisible, {'attr': {'class': 'form-check-input'}}) }}
+</fieldset>
+
+{{ form_widget(form._token) }}
+
+<button class="btn btn-primary">{{ button_label|default('Valider') }}</button>
+
+{{ form_end(form) }}
+
+<script>
+    document.addEventListener('turbo:load', function () {
+        const checkbox = document.getElementById('recurring_task_form_oneTime');        
+        const frequencyInput = document.getElementById('recurring_task_form_frequency');
+        const frequencyUnitSelect = document.getElementById('recurring_task_form_frequencyUnit');
+        const recurrenceBlock = document.getElementById('recurrences');
+
+        if (!checkbox || !frequencyInput || !frequencyUnitSelect || !recurrenceBlock) {
+            console.warn('Un des champs de récurrence est introuvable.');
+            return;
+        }
+
+        function updateRecurrenceFields(resetValues = false) {
+            const isOneTime = checkbox.checked;
+
+            recurrenceBlock.style.display = isOneTime ? 'none' : 'flex';
+            frequencyInput.disabled = isOneTime;
+            frequencyUnitSelect.disabled = isOneTime;
+
+            if (isOneTime && resetValues) {
+                frequencyInput.value = 0;
+                frequencyUnitSelect.selectedIndex = 0;
+            }
+        }
+
+        checkbox.addEventListener('change', () => updateRecurrenceFields(true));
+
+        updateRecurrenceFields(false);
+    });
+</script>

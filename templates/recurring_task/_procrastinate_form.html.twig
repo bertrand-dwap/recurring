@@ -1,0 +1,11 @@
+<form method="post"
+      action="{{ path('app_recurring_task_procrastinate', {'id': task.id}) }}"
+      onsubmit="return confirm('Voulez-vous vraiment reporter cette tâche à demain ?');"
+      class="d-inline">
+
+    <input type="hidden" name="_token" value="{{ csrf_token('procrastinate' ~ task.id) }}">
+
+    <button type="submit" class="btn btn-outline-warning btn-sm">
+        <i class="bi bi-clock-history me-1"></i> Reporter à demain
+    </button>
+</form>

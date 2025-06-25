@@ -1,0 +1,10 @@
+<form method="post"
+      action="{{ path('app_recurring_task_delete', {'id': recurring_task.id}) }}"
+      onsubmit="return confirm('⚠️ Cette action supprimera définitivement cette tâche.\n\n👉 Si la tâche a été réalisée, cliquez plutôt sur le bouton “Faire”.\n\n❌ Voulez-vous vraiment supprimer cette tâche ?');"
+>
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ recurring_task.id) }}">
+
+    <button class="btn btn-outline-danger">
+        <i class="bi bi-trash me-1"></i> Supprimer cette tâche
+    </button>
+</form>

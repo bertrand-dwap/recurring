@@ -1,0 +1,26 @@
+<div class="mt-2 d-flex flex-wrap gap-2">
+
+    {% if task.canProcrastinate %}
+        {{ include('recurring_task/_procrastinate_form.html.twig') }}
+    {% endif %}
+
+    <a class="btn btn-outline-success btn-sm" href="{{ path('app_log_new', { 'id': task.id }) }}">
+        Faire
+    </a>
+
+    <a href="{{ path('app_recurring_task_edit', {'id': task.id}) }}"
+       class="btn btn-outline-primary btn-sm">
+        Modifier
+    </a>
+
+    <a href="{{ path('app_recurring_task_delete', {'id': task.id}) }}"
+       class="btn btn-outline-danger btn-sm">
+        Supprimer
+    </a>
+
+    <a href="{{ path('app_log_index', { 'recurringTaskId': task.id }) }}"
+        class="btn btn-outline-secondary btn-sm">
+        Historique
+    </a>
+
+</div>

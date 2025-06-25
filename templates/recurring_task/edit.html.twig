@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la tâche : {{ recurring_task.task }}{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h4 mb-0">Modifier la tâche</h1>
+        <a href="{{ path('app_recurring_task_index') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i> Revenir à la liste
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            {{ include('recurring_task/_form.html.twig', { 'button_label': 'Mettre à jour la tâche' }) }}
+        </div>
+    </div>
+
+    <div class="text-end">
+        {{ include('recurring_task/_delete_form.html.twig') }}
+    </div>
+
+</div>
+{% endblock %}

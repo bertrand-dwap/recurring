@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes tâches prout récurrentes{% endblock %}
+
+{% block body %}
+<div class="d-flex justify-content-between align-items-center my-4">
+    <h1 class="h3">Mes tâches récurrentes</h1>
+    <a href="{{ path('app_recurring_task_new') }}" class="btn btn-success">
+        <i class="bi bi-plus-circle me-1"></i> Nouvelle tâche
+    </a>
+</div>
+
+{% set sections = {
+    'passed': {'label': 'En retard', 'class': 'late'},
+    'today': {'label': "Aujourd'hui", 'class': 'today'},
+    'tomorrow': {'label': 'Demain', 'class': 'tomorrow'},
+    'future': {'label': 'À venir', 'class': 'future'}
+} %}
+
+{% for key, config in sections %}
+    <section class="mb-5 p-3 rounded {{ config.class }}">
+        <h2 class="h5 border-bottom pb-2 mb-3">{{ config.label }}</h2>
+
+        {% if recurring_tasks[key] is empty %}
+            <div class="task text-muted fst-italic">Aucune tâche prévue.</div>
+        {% else %}
+            {% for task in recurring_tasks[key] %}
+                <div class="mb-3">
+                    {% include 'recurring_task/_task.html.twig' %}
+                    <div class="mt-1">
+                        {% include 'recurring_task/_buttons.html.twig' %}
+                    </div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </section>
+{% endfor %}
+{% endblock %}

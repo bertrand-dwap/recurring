@@ -1,0 +1,58 @@
+<div id="{{ task.id }}" class="task">
+
+    <h6 class="mb-1">{{ task.task }}</h6>
+
+    <p class="text-muted small fst-italic">
+        {% set content = 'Pas de récurrence' %}
+        {% if task.frequencyUnit %}
+            {% set unit = {
+                'day': 'jour(s)',
+                'week': 'semaine(s)',
+                'month': 'mois'
+            }[task.frequencyUnit]|default('') %}
+            {% set content = 'Tous les ' ~ task.frequency ~ ' ' ~ unit %}
+        {% endif %}
+        {{ content }}, affichage {{ task.nbDaysBeforeToDisplay }} jour(s) avant l'échéance.
+    </p>
+
+    <p class="echeance">
+        <small>échéance le {{ task.nextTimeToStr }}</small>
+    </p>
+
+    {% if task.comments is not empty %}
+        <fieldset class="mb-3">
+            <legend>Consignes pour la réalisation de cette tâche</legend>
+            <article>{{ task.comments|nl2br|raw }}</article>
+        </fieldset>
+    {% endif %}
+
+    {% if task.logs is not empty and task.latestOperationsVisible %}
+        <fieldset class="mb-3">
+            <legend>Dernières opérations</legend>
+            {% for log in task.logs|slice(0, 5) %}
+                <p class="p_history">Le {{ log.date|date('d/m/Y') }}. {{ log.comments ?? 'Aucun commentaire' }}.</p>
+            {% endfor %}
+        </fieldset>
+    {% endif %}
+
+
+    {% if task.linkedFiles is not empty %}
+        <fieldset class="mb-3">
+            <legend>Documents associés</legend>
+            {% for file in task.linkedFiles %}
+                {% if file.mimeType starts with 'image/' %}
+                    <img src="{{ asset('uploads/' ~ file.uniqId) }}" class="img-thumbnail mb-2" width="300" alt="{{ file.originalName }}">
+                {% else %}
+                    <div>
+                        <a href="{{ asset('uploads/' ~ file.uniqId) }}"
+                           target="_blank"
+                           download="{{ file.originalName }}">
+                            {{ file.originalName }}
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </fieldset>
+    {% endif %}
+
+</div>
