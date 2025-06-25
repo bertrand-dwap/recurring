@@ -31,7 +31,7 @@
 
 ---
 
-## Installation locale
+## 🚀 Installation locale
 
 ### Prérequis
 
